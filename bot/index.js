@@ -18,7 +18,7 @@ async function main() {
 				to: message.userTo,
 				html: message.message,
 			});
-			axios.post(`/messages`, {
+			axios.post(`${process.env.BASE_URL}/messages`, {
 				...message,
 				status: "read",
 			});

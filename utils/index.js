@@ -52,11 +52,14 @@ async function checkExistAndWriteMessageToDB() {
 	const messages = JSON.parse(messagesData).messages;
 
 	for (let message of messages) {
-		const res = await axios.post(`/messages/byMessage`, {
-			message: message.fullmessagehtml || message.text,
-		});
+		const res = await axios.post(
+			`${process.env.BASE_URL}/messages/byMessage`,
+			{
+				message: message.fullmessagehtml || message.text,
+			}
+		);
 		if (res.data.length == 0) {
-			axios.post(`/messages`, {
+			axios.post(`${process.env.BASE_URL}/messages`, {
 				userFrom: message.userfromfullname,
 				userTo: message.usertofullname,
 				message: message.fullmessagehtml || message.text,
@@ -67,7 +70,7 @@ async function checkExistAndWriteMessageToDB() {
 }
 
 async function getUnreadMessagesFromDB() {
-	const messages = await axios.get(`/messages`);
+	const messages = await axios.get(`${process.env.BASE_URL}/messages`);
 	return messages.data;
 }
 
